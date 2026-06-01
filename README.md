@@ -1,73 +1,58 @@
-# React + TypeScript + Vite
+# 🧊 Rubik's Cube Solver App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fully interactive 3D Rubik's Cube web application built with React and Three.js. This application allows you to play with a 3D Rubik's Cube, shuffle it, input standard algebraic notation, and automatically solve it using Kociemba's two-phase algorithm.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Interactive 3D Visualization**: Smooth, perfectly synchronized 3D animations using `@react-three/fiber` and `@react-three/drei`.
+- **Intelligent Solver**: Automatically calculates the shortest path to solve any valid cube state.
+- **Step-by-Step Playback**: Step forward, backward, or play the entire solution sequence automatically.
+- **Algebraic Notation Support**: Input standard cube notation (e.g., `R U R' U'`) to manipulate the cube manually.
+- **State Import/Export**: Instantly copy or import the 54-character Kociemba state string to share layouts or save your progress.
+- **Random Shuffle**: Generate a random 20-move shuffle with the click of a button and easily copy the generated sequence.
+- **Sleek UI**: A modern, glassmorphic user interface layered over the 3D canvas.
 
-## React Compiler
+## 🛠️ Technologies
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 18**
+- **Vite**
+- **Three.js** (@react-three/fiber, @react-three/drei)
+- **Cube.js** (Internal logic and Kociemba solver)
+- **Lucide React** (Icons)
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/wadigzon/rubik-solver-app.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd rubik-solver-app
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Running Locally
+
+Start the Vite development server:
+```bash
+npm run dev
 ```
+Open your browser and visit `http://localhost:5173`.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🎮 How to Use
+- **Drag to Rotate**: Click and drag outside the cube to rotate the camera around the 3D scene.
+- **Controls**: Use the **Shuffle** button to mix the cube up, or the **Solve** button to calculate a solution.
+- **Standard Notation**: Type standard cube moves into the text box and hit Apply (e.g. `F2 B2 R2 L2 U2 D2` for a checkerboard pattern).
+- **Importing Strings**: Paste a valid 54-character string (representing the 6 faces) into the state box and click **Import** to snap the cube to that exact configuration.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📝 License
+This project is open-source and available under the MIT License.
