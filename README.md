@@ -2,6 +2,10 @@
 
 A fully interactive 3D Rubik's Cube web application built with React and Three.js. This application allows you to play with a 3D Rubik's Cube, shuffle it, input standard algebraic notation, and automatically solve it using Kociemba's two-phase algorithm.
 
+## 📸 App Preview
+
+![Rubik's Cube Solver App Preview](public/preview.png)
+
 ## ✨ Features
 
 - **Interactive 3D Visualization**: Smooth, perfectly synchronized 3D animations using `@react-three/fiber` and `@react-three/drei`.
