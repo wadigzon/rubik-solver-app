@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { RubiksCube } from './RubiksCube';
@@ -29,6 +30,47 @@ export default function App() {
   // Solver debug state
   const [solveSteps, setSolveSteps] = useState<string[]>([]);
   const [solveIndex, setSolveIndex] = useState(-1);
+
+  // Camera Controls
+  const controlsRef = useRef<any>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is typing in an input field
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      if (!controlsRef.current) return;
+      
+      const camera = controlsRef.current.object;
+      const angle = 15 * (Math.PI / 180); // 15 degrees rotation per keystroke
+      
+      const spherical = new THREE.Spherical().setFromVector3(camera.position);
+
+      switch(e.key) {
+        case 'ArrowLeft':
+          spherical.theta -= angle;
+          break;
+        case 'ArrowRight':
+          spherical.theta += angle;
+          break;
+        case 'ArrowUp':
+          spherical.phi = Math.max(0.1, spherical.phi - angle);
+          break;
+        case 'ArrowDown':
+          spherical.phi = Math.min(Math.PI - 0.1, spherical.phi + angle);
+          break;
+        default:
+          return;
+      }
+
+      spherical.makeSafe();
+      camera.position.setFromSpherical(spherical);
+      controlsRef.current.update();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Update text box when cube state changes
   useEffect(() => {
@@ -186,7 +228,7 @@ export default function App() {
           animationMove={currentMove}
           onAnimationComplete={handleAnimationComplete}
         />
-        <OrbitControls enablePan={false} minDistance={4} maxDistance={12} />
+        <OrbitControls ref={controlsRef} enablePan={false} minDistance={4} maxDistance={12} />
       </Canvas>
 
       {/* UI Overlay */}
